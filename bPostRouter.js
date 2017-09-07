@@ -13,8 +13,15 @@ router.get('/', (req, res) => {
 
 router.post('/', jsonParser, (req, res) => {
   console.log('running posts');
+  const requiredFields = ['title', 'content', 'author'];
+  for (let i = 0; i < requiredFields.length; i++){
+    if (!(requiredFields[i] in req.body)){
+      const message = `Missing ${requiredFields[i]}`;
+      return res.status(400).send(message);
+    }
+  }
   const item = BlogPosts.create(req.body.title, req.body.content, req.body.author);
-  console.log("running post");
+  console.log('running post');
   console.log(item);
   res.status(201).json(item);
 });
