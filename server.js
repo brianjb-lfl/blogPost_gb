@@ -19,19 +19,19 @@ app.get('/', (req, res) => {
 
 console.log('adding dummy data');
 BlogPosts.create(
-  {
-    title: "My first blog post",
-    content: "This is my first blog post.",
-    author: "giri",
-  }
+  
+  "My first blog post",
+  "This is my first blog post.",
+  "giri"
+  
 );
 
 BlogPosts.create(
-  {
-    title:"My second blog post",
-    content: "This is my second blog post",
-    author: "giri"
-  }
+  
+  "My second blog post",
+   "This is my second blog post",
+  "giri"
+  
 );
 
 app.listen(process.env.PORT || 8080, () => {
