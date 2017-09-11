@@ -19,24 +19,51 @@ app.get('/', (req, res) => {
 
 console.log('adding dummy data');
 BlogPosts.create(
-  
-  "My first blog post",
-  "This is my first blog post.",
-  "giri"
-  
+  'My first blog post',
+  'This is my first blog post.',
+  'giri'
 );
 
 BlogPosts.create(
-  
-  "My second blog post",
-   "This is my second blog post",
-  "giri"
-  
+  'My second blog post',
+  'This is my second blog post',
+  'giri'
 );
+let server;
+function runServer(){
+  const port = process.env.PORT || 8080;
+  return new Promise((resolve, reject) => {
+    server = app.listen(port, () => {
+      console.log(`Ypur app is listening on port ${port}`);
+      resolve(server);
+    }).on('error', err => {
+      reject(err);
+    });
+  });
+}
 
-app.listen(process.env.PORT || 8080, () => {
-  console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
-});
+function closeServer(){
+  return new Promise((resolve, reject) => {
+    console.log('closing server');
+    server.close(err => {
+      if (err){
+        reject(err);
+        return;
+      }
+      resolve();
+    });
+  });
+}
+
+if (require.main === module){
+  runServer().catch(err => console.error(err));
+}
+
+module.exports = {app, runServer, closeServer};
+
+// app.listen(process.env.PORT || 8080, () => {
+//   console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
+// });
 
 
 // *** STEPS

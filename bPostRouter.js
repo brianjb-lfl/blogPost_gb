@@ -22,7 +22,7 @@ router.post('/', jsonParser, (req, res) => {
   }
   const item = BlogPosts.create(req.body.title, req.body.content, req.body.author);
   console.log('running post'
-);
+  );
   console.log(item);
   res.status(201).json(item);
 });
@@ -48,13 +48,14 @@ router.put('/:id', jsonParser, (req, res) => {
 
 router.delete('/:id', (req, res) => {
   if (!BlogPosts.posts.find(item => {
+    console.log(item);
     item.id === req.params.id;
   })){
     return res.status(400).send('id is not matching');
   }
   BlogPosts.delete(req.params.id);
   console.log(`deleted  item ${req.params.id}`);
-  res.status(204).end();
+  res.status(204).send('test delete');
 });
 
 module.exports = router;      // try to use the new method
